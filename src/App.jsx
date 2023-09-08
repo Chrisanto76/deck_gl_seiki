@@ -44,10 +44,9 @@ const INITIAL_VIEW_STATE = {
 };
 
 function App() {
-	const [data, setData] = useState(null); // État pour les données géospatiales
+	const [data, setData] = useState(null); // données géospatiales
 
 	useEffect(() => {
-		// Utilisez Axios pour effectuer une requête à votre API
 		axios
 			.get('https://api.seiki.co/v1/pois', {
 				headers: {
@@ -57,23 +56,22 @@ function App() {
 			})
 
 			.then((response) => {
-				// Stockez les données de réponse dans l'état
 				setData(response.data.items);
 				console.log(response.data.items);
 			})
 			.catch((error) => {
 				console.error('Erreur lors de la récupération des données:', error);
 			});
-	}, []); // Le tableau vide [] assure que la requête est effectuée une seule fois après le montage du composant
+	}, []); // Le tableau vide [] montage du composant
 
 	if (!data) {
 		return <div>Chargement en cours...</div>;
 	}
 
-	// Créez un GeoJsonLayer avec les données reçues de l'API
+	// GeoJsonLayer avec les données reçues de l'API
 	const geoJsonLayer = new GeoJsonLayer({
 		id: 'geojson-layer',
-		data: data, // Utilisez les données reçues de l'API
+		data: data, // 'API
 		pickable: true,
 		stroked: false,
 		filled: true,
